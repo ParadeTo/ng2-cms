@@ -4,5 +4,12 @@
 
 # 效果
 
+![image](https://github.com/ParadeTo/ng2-cms/blob/master/img/demo1.gif)
+
+![image](https://github.com/ParadeTo/ng2-cms/blob/master/img/demo1.gif)
+
+![image](https://github.com/ParadeTo/ng2-cms/blob/master/img/demo1.gif)
+
+![image](https://github.com/ParadeTo/ng2-cms/blob/master/img/demo1.gif)
 
 
