@@ -6,10 +6,10 @@
 
 ![image](https://github.com/ParadeTo/ng2-cms/blob/master/img/demo1.gif)
 
-![image](https://github.com/ParadeTo/ng2-cms/blob/master/img/demo1.gif)
+![image](https://github.com/ParadeTo/ng2-cms/blob/master/img/demo2.gif)
 
-![image](https://github.com/ParadeTo/ng2-cms/blob/master/img/demo1.gif)
+![image](https://github.com/ParadeTo/ng2-cms/blob/master/img/demo3.gif)
 
-![image](https://github.com/ParadeTo/ng2-cms/blob/master/img/demo1.gif)
+![image](https://github.com/ParadeTo/ng2-cms/blob/master/img/demo4.gif)
 
 
