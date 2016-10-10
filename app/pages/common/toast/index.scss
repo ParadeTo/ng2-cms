@@ -1,0 +1,10 @@
+.modal-dialog {
+  z-index: 999
+}
+
+.container {
+  display: none;
+  &.show {
+    display: block;
+  }
+}

@@ -1,0 +1,55 @@
+<button class="btn btn-default" id="toggle-sidebar" type="button" (click)="eventCalled()">
+    &#9776;
+</button>
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+  <ul class="list-group">
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="showCouponMenu()">
+        <span><i class="fa fa-th-list"></i> &nbsp; 优惠券管理</span>
+      </a>
+      <li class="nested" [ngClass]="{'expand' : _showCouponMenu === true }">
+        <ul class="submenu">
+          <li>
+            <a [routerLink]="['/dashboard','/coupon','/search']"><span>券模板查询</span></a>
+          </li>
+          <li>
+            <a [routerLink]="['/dashboard','/coupon','/add']"><span>新增券模板</span></a>
+          </li>
+          <li>
+            <a [routerLink]="['/dashboard','/coupon','/grant']"><span>发放券</span></a>
+          </li>
+          <li>
+            <a [routerLink]="['/dashboard','/coupon','/exchange']"><span>商品券兑换</span></a>
+          </li>
+        </ul>
+      </li>
+    </div>
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="showRewardMenu()">
+        <span><i class="fa fa-th-list"></i> &nbsp; 现金奖励</span>
+      </a>
+      <li class="nested" [ngClass]="{'expand' : _showRewardMenu === true }">
+        <ul class="submenu">
+          <li>
+            <a [routerLink]="['/dashboard','/reward','/grant-cash']"><span>发放现金奖励</span></a>
+          </li>
+        </ul>
+      </li>
+    </div>
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="showActivityMenu()">
+        <span><i class="fa fa-th-list"></i> &nbsp; 活动管理</span>
+      </a>
+      <li class="nested" [ngClass]="{'expand' : _showActivityMenu === true }">
+        <ul class="submenu">
+          <li>
+            <a [routerLink]="['/dashboard','/activity','/search']"><span>活动ID查询</span></a>
+          </li>
+          <li>
+            <a [routerLink]="['/dashboard','/activity','/add']"><span>新增活动ID</span></a>
+          </li>
+        </ul>
+      </li>
+    </div>
+  </ul>
+</nav>

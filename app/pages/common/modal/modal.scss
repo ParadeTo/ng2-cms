@@ -1,0 +1,37 @@
+.dl-horizontal dt {
+  float: left;
+  width: 160px;
+  overflow: hidden;
+  clear: left;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dl-horizontal dd {
+  margin-left: 180px;
+}
+
+.col-modal {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #55595c;
+  background-color: #fff;
+  background-image: none;
+  width:60%;
+}
+
+.row {
+  position: relative;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  dt {
+    position: absolute;
+    top: 5px;
+  }
+}
+
+.btn-modal {
+  margin-top: 15px;
+}

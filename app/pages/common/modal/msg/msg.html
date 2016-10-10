@@ -1,0 +1,33 @@
+<form [ngFormModel]='modalForm' (ngSubmit)='onSubmit()'>
+  <dl class="dl-horizontal">
+    <dt>商品名：</dt>
+    <dd>{{coupon.couponName || '&nbsp;'}}</dd>
+    <dt>兑换方式：</dt>
+    <dd>{{ExchangeDict[coupon.exchangeType] || '&nbsp;'}}</dd>
+    <dt>用户姓名：</dt>
+    <dd>{{coupon.memberName || '&nbsp;'}}</dd>
+    <dt>手机号：</dt>
+    <dd>{{coupon.memberPhone || '&nbsp;'}}</dd>
+    <div class="row">
+      <dt>兑换码：</dt>
+      <dd class="col-modal">
+        <input type="text" class="form-control" ngControl='giftContent' id="" [(ngModel)]='exchangeNum'>
+        <div *ngIf="!giftContent.valid && giftContent.touched" class="alert alert-danger" role="alert">
+          请输入兑换码
+        </div>
+      </dd>
+    </div>
+    <div class='row'>
+      <dt>状态：</dt>
+      <dd>
+        <my-drop-down-cmp [list]='StatusList' [selectId]='coupon.status' #status='myDropDown'></my-drop-down-cmp>
+      </dd>
+    </div>
+    <dt>
+  </dt>
+    <dd>
+        <button type="submit" class="btn-modal btn btn-primary" [disabled]='!modalForm.valid || submitting'>确认</button>
+    </dd>
+  </dl>
+</form>
+

@@ -1,0 +1,36 @@
+.form-group {
+  padding-right: 19px;
+}
+
+datepicker .btn-default {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.btn-add-coupon {
+  margin: 15px 0 15px 0;
+}
+
+.dropdown-menu-left {
+  left: 0 !important;
+}
+
+.form-inline {
+  margin-bottom: 15px;
+}
+
+.change {
+	keyframes: masked-animation 2s 1 linear;
+    -webkit-animation: masked-animation 2s 1 linear;
+}
+
+@-webkit-keyframes masked-animation {
+    0%  { text-shadow : 0 0 10px orange;}
+    100% { text-shadow : none;}
+}
+
+@keyframes masked-animation {
+    0%  { text-shadow : 0 0 10px orange;}
+    100% { text-shadow : none;}
+}

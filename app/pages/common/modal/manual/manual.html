@@ -1,0 +1,23 @@
+<form (ngSubmit)='onSubmit()'>
+  <dl class="dl-horizontal">
+    <dt>商品名：</dt>
+    <dd>{{coupon.couponName || '&nbsp;'}}</dd>
+    <dt>兑换方式：</dt>
+    <dd>{{ExchangeDict[coupon.exchangeType] || '&nbsp;'}}</dd>
+    <dt>用户姓名：</dt>
+    <dd>{{coupon.memberName || '&nbsp;'}}</dd>
+    <dt>手机号：</dt>
+    <dd>{{coupon.memberPhone || '&nbsp;'}}</dd>
+    <div class='row'>
+      <dt>状态：</dt>
+      <dd>
+        <my-drop-down-cmp [list]='StatusList' [selectId]='coupon.status' #status='myDropDown'></my-drop-down-cmp>
+      </dd>
+    </div>
+    <dt>
+    </dt>
+    <dd>
+      <button type="submit" class="btn-modal btn btn-primary">确认</button>
+    </dd>
+  </dl>
+</form>

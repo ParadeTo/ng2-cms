@@ -1,0 +1,66 @@
+<page-head [breadcrumb]="['优惠券管理','券查询']"></page-head>
+<form class="form-inline" role="form" [ngFormModel]="searchForm" (submit)='search($event)'>
+	<div class="form-group" [ngClass]="{'has-danger': !couponTempId.valid}">
+		<label for="couponId">券模板ID：</label>
+		<input type="text" class="form-control" id="couponId" ngControl='couponTempId'
+				tooltip="请输入小于10位数字" 
+ 				tooltipPlacement="top"
+           tooltipTrigger="focus"
+		 [(ngModel)]='searchParams.id'>
+	</div>
+	<div class="form-group">
+		<label class='dropdown-label' for="couponId">券类别：</label>
+		<my-drop-down-cmp [list]='CouponList' #myDropDown='myDropDown'></my-drop-down-cmp>
+	</div>
+	<div class="form-group">
+		<label for="exampleInputPassword2">创建时间：</label>
+		<div class='date-control'>
+			<input type="text" (focus)='showDatePicker1($event)' class="form-control" value='{{ d1.getDate() | date:"yyyy/MM/dd" }}' id="startTime" readonly="readonly">
+			<my-date-picker-cmp [minDate]='startDate1' #d1='datePicker'></my-date-picker-cmp>
+		</div>
+		-
+		<div class='date-control'>
+			<input type="text" (focus)='showDatePicker2($event)' (change)='getLastTime($event)'  value='{{d2.getDate() | date:"yyyy/MM/dd"}}' class="form-control" id="endTime" readonly="readonly">
+			<my-date-picker-cmp [minDate]='startDate2' #d2='datePicker'></my-date-picker-cmp>
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary" [disabled]='!searchForm.valid || submitting' >搜索</button>
+</form>
+<a type="button" class="btn btn-primary btn-add-coupon" [routerLink]="['/dashboard','/coupon','/add']">新增券</a>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>券模板ID</th>
+			<th>券类别</th>
+			<th>兑换方式</th>
+			<th>商品名称</th>
+			<th>有效期</th>
+			<th>创建时间</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody *ngIf='couponTmpList.length > 0'>
+		<tr *ngFor='let c of couponTmpList'>
+			<td scope="row">{{c.couponId}}</td>
+			<td>{{CouponDict[c.couponType]}}</td>
+			<td>{{ExchangeDict[c.exchangeType]}}</td>
+			<td>{{c.couponName}}</td>
+			<td [ngSwitch]='c.validDays'>
+				<template  [ngSwitchWhen] = '0'>
+					长期有效
+				</template>
+				<template ngSwitchDefault>
+					{{c.validDays}}
+				</template>
+			</td>
+			<td>{{c.gmtCreate.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+			<td><a [routerLink]="['/dashboard','/coupon','/add',c.couponId]">修改</a></td>
+		</tr>
+	</tbody>
+</table>
+<p class="no-data-note" *ngIf='couponTmpList.length == 0'>
+	没有数据
+</p>
+<div class="pagination">
+	<pagination [firstText]="'首页'" [lastText]="'末页'" [previousText]="'上一页'" [nextText]="'下一页'"  [totalItems]="totalItems" [itemsPerPage]='itemsPerPage' [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-sm" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)"></pagination>
+</div>

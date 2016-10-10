@@ -1,0 +1,90 @@
+<page-head [breadcrumb]="['优惠券管理','发放券']"></page-head>
+<div class="container-fluid">
+	<!-- 表单 -->
+	<form class="form" role="form" [ngFormModel]='grantForm' (ngSubmit)='onSubmit()'>
+		<!-- 券模板ID -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="name">券模板ID：</label>
+			<div class="col-xl-2">
+				<input type="text" class="form-control" id="name" ngControl='couponTempId' [(ngModel)]='grant.couponTemplateId'>
+				<div *ngIf="couponTempId.hasError('required') && couponTempId.touched" class="alert alert-danger" role="alert">
+					请输入券模板ID
+				</div>
+				<div *ngIf="couponTempId.hasError('pattern') && couponTempId.touched" class="alert alert-danger" role="alert">
+					券模板ID必须为1~10位数字
+				</div>
+			</div>
+		</div>
+		<!-- 活动key -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="name">活动key：</label>
+			<div class="col-xl-2">
+				<input type="text" class="form-control" id="name" ngControl='activityId' [(ngModel)]='grant.activeId'>
+				<div *ngIf="activityId.hasError('required') && activityId.touched" class="alert alert-danger" role="alert">
+					请输入活动key
+				</div>
+				<div *ngIf="activityId.hasError('pattern') && activityId.touched" class="alert alert-danger" role="alert">
+					活动key必须为1~10位数字
+				</div>
+			</div>
+		</div>
+		<!-- 用户id名单 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="uploadFile">用户id名单
+				（<a [href]="TemplateUrl">下载模板</a>）：
+			</label>
+			<div class="col-xl-2">
+				<label class="btn btn-primary" for="uploadFile">点击上传</label>
+				<input type="file" id="uploadFile" class="hidden" (change)='uploadFile($event)'>
+				<div *ngIf="fileCheckRes && fileCheckRes.type !== 'ok'" class="alert alert-danger" role="alert">
+					{{fileCheckRes.err}}
+				</div>
+				<progress class="progress progress-success" [value]="proValue" [max]="100"></progress>
+			</div>
+		</div>
+		<!-- 备注 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="expDate">备注：</label>
+			<div class="col-xl-2">
+				<textarea class="form-control" id="expDate" [(ngModel)]='grant.desc'></textarea>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="expDate"></label>
+			<div class="col-xl-2">
+				<button type="submit" class="btn btn-primary" [disabled]='!grantForm.valid || submitting || !fileCheckRes || fileCheckRes.type != "ok"'>确认发放</button>
+			</div>
+		</div>
+	</form>
+	<div *ngIf="successNum >= 0" class="col-xl-4 alert alert-success" role="alert">
+		本次发放成功{{successNum}}条
+	</div>
+<!-- 	<div *ngIf="resList.length > 0">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>用户ID</th>
+					<th>用户姓名</th>
+					<th>用户手机</th>
+					<th>导入状态</th>
+					<th>发放状态</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor='let r of resList'>
+				<td scope="row">{{r.couponId}}</td>
+				<td>{{CouponDict[r.couponType]}}</td>
+				<td>{{ExchangeDict[r.exchangeType]}}</td>
+				<td>{{r.couponName}}</td>
+				<td>{{r.validDays}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="pagination">
+			<pagination [totalItems]="totalItems" [itemsPerPage]='itemsPerPage' [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-sm" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)"></pagination>
+		</div>
+	</div> -->
+</div>
+
+<toast-cmp #toast='toast'></toast-cmp>	

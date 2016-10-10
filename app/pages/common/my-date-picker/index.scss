@@ -1,0 +1,22 @@
+.btn-today {
+  width:49%;
+}
+
+.btn-ok {
+  width:49%;
+}
+
+.my-date-picker {
+  position: absolute;
+  bottom: -296px;
+  left: 0;
+  border-radius: 3px;
+  background-color: #f5f5f5;
+  border: 1px solid rgb(227,227,227);
+  padding:9px;
+  z-index: 99;
+}
+
+.hide {
+  display:none !important;
+}

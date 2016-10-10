@@ -1,0 +1,58 @@
+<page-head [breadcrumb]="['活动管理',title]"></page-head>
+<div class="container-fluid add-form">
+	<!-- 表单 -->
+	<form class="form" role="form" [ngFormModel]='addForm' (submit)='onSubmit($event)'>
+		<!-- 券模板ID -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="name">活动名称：</label>
+			<div class="col-xl-3">
+				<input type="text" class="form-control" id="name" ngControl='name' [(ngModel)]='activity.activityName'>
+				<div *ngIf="!name.valid && name.touched" class="alert alert-danger" role="alert">
+					请输入合法的活动名称（不包含特殊字符）
+				</div>
+			</div>
+			活动名称将对外展示，请谨慎起名。如无明确渠道目的，可以“系统发放”命名
+		</div>
+		<!-- 开始时间 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="expDate">开始时间：</label>
+			<div class='col-xl-3'>
+				<input type="text" (focus)='showDatePicker1($event)' class="form-control" value='{{ d1.getDate() | date:"yyyy/MM/dd" }}' id="startTime" readonly="readonly">
+				<my-date-picker-cmp [minDate]='startDate1' #d1='datePicker'></my-date-picker-cmp>
+			</div>
+		</div>
+		<!-- 结束时间 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="expDate">结束时间：</label>
+			<div class='col-xl-3'>
+				<input type="text" (focus)='showDatePicker2($event)' class="form-control" value='{{ d2.getDate() | date:"yyyy/MM/dd" }}' id="startTime" readonly="readonly">
+				<my-date-picker-cmp [minDate]='startDate1' #d2='datePicker'></my-date-picker-cmp>
+			</div>
+		</div>
+		<!-- 状态 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="expDate">状态：</label>
+			<div class="col-xl-3">
+				<my-drop-down-cmp [isDisabled]='isDisabled' [list]='statusList' [selectId]='selectedIndex' #status='myDropDown'></my-drop-down-cmp>
+			</div>
+		</div>
+		<!-- 备注 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="expDate">申请备注：</label>
+			<div class="col-xl-3">
+				<textarea class="form-control" id="expDate" [(ngModel)]='activity.des'></textarea>
+			</div>
+			不对外展示
+		</div>
+
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="expDate"></label>
+			<div class="col-xl-3">
+				<button type="submit" class="btn btn-primary" [disabled]='!addForm.valid || submitting'>确认</button>
+			</div>
+		</div>
+
+	</form>
+</div>
+
+<toast-cmp #toast='toast'></toast-cmp>

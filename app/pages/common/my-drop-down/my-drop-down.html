@@ -1,0 +1,12 @@
+<div class="drop-down-container" dropdown>
+	<button [disabled]='isDisabled' id="chat-dropdown" type="button" class="btn btn-secondary" dropdownToggle [disabled]="disabled">
+				{{text}}<span class="caret"></span>
+		</button>
+	<ul class="dropdown-menu pull-left" role="menu" aria-labelledby="chat-dropdown">
+		<li role="menuitem" *ngFor='let l of list; let i = index'>
+			<a class="dropdown-item" href='javascript:;' (click)='changeSelect(l.id,l.text,i)'>
+								{{l.text}}
+							</a>
+		</li>
+	</ul>
+</div>

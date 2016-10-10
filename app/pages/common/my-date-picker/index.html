@@ -1,0 +1,5 @@
+<div #container [class.hide]='hide' class="my-date-picker" style="display:inline-block; min-height:290px;">
+  <datepicker [(ngModel)]="dt" [minDate]='minDate' [maxDate]="maxDate" [showWeeks]="true"></datepicker>
+  <button type="button" class="btn btn-sm btn-info btn-today" (click)="today()">Today</button>
+  <button type="button" class="btn btn-sm btn-danger btn-ok" (click)="clear()">Clear</button>
+</div>

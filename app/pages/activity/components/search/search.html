@@ -1,0 +1,60 @@
+<page-head [breadcrumb]="['活动管理','活动ID查询']"></page-head>
+<form class="form-inline" role="form" [ngFormModel]="searchForm" (submit)='search($event)'>
+	<div class="form-group" [ngClass]="{'has-danger': !activityId.valid}">
+		<label for="couponId">活动ID：</label>
+		<input tooltip="请输入小于10位数字" 
+ 				tooltipPlacement="top"
+           tooltipTrigger="focus"
+		type="text" class="form-control" ngControl="activityId" [(ngModel)]='searchParams.id'>
+	</div>
+	<div class="form-group" [ngClass]="{'has-danger': !activityName.valid}">
+		<label for="couponId">活动名称：</label>
+		<input type="text" class="form-control" ngControl="activityName" 
+				tooltip="请输入小于50位非特殊字符" 
+ 				tooltipPlacement="top"
+           tooltipTrigger="focus"
+		[(ngModel)]='searchParams.name'>
+	</div>
+	<div class="form-group">
+		<label for="exampleInputPassword2">创建时间：</label>
+		<div class='date-control'>
+			<input type="text" (focus)='showDatePicker1($event)' class="form-control" value='{{ d1.getDate() | date:"yyyy/MM/dd" }}' id="startTime" readonly="readonly">
+			<my-date-picker-cmp #d1='datePicker'></my-date-picker-cmp>
+		</div>
+		-
+		<div class='date-control'>
+			<input type="text" (focus)='showDatePicker2($event)' (change)='getLastTime($event)'  value='{{d2.getDate() | date:"yyyy/MM/dd"}}' class="form-control" id="endTime" readonly="readonly">
+			<my-date-picker-cmp #d2='datePicker'></my-date-picker-cmp>
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary" [disabled]='!searchForm.valid || submitting'>搜索</button>
+</form>
+<a type="button" class="btn btn-primary btn-add-coupon" [routerLink]="['/dashboard','/activity','/add']">新增活动</a>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>活动ID</th>
+			<th>活动名称</th>
+			<th>备注</th>
+			<th>创建时间</th>
+			<th>修改时间</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody *ngIf='activities.length > 0'>
+		<tr *ngFor='let a of activities'>
+			<td scope="row">{{a.activityId}}</td>
+			<td>{{a.activityName}}</td>
+			<td>{{a.des}}</td>
+			<td>{{a.gmtCreate.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+			<td>{{a.gmtModified.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+			<td><a [routerLink]="['/dashboard','/activity','/add',a.activityId]">修改</a></td>
+		</tr>
+	</tbody>
+</table>
+<p class="no-data-note" *ngIf='activities.length == 0'>
+	没有数据
+</p>
+<div class="pagination">
+	<pagination [firstText]="'首页'" [lastText]="'末页'" [previousText]="'上一页'" [nextText]="'下一页'" [totalItems]="totalItems" [itemsPerPage]='itemsPerPage' [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-sm" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)"></pagination>
+</div>

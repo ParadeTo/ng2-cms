@@ -1,0 +1,83 @@
+<form [ngFormModel]='modalForm' (ngSubmit)='onSubmit()'>
+  <dl class="dl-horizontal">
+    <dt>商品名：</dt>
+    <dd>大疆无人机</dd>
+    <dt>兑换方式：</dt>
+    <dd>提交微信</dd>
+    <dt>用户姓名：</dt>
+    <dd>吴立辉</dd>
+    <dt>手机号：</dt>
+    <dd>18611112569</dd>
+    <div [ngSwitch]='type'>
+      <template  [ngSwitchWhen]='1'>
+        <dt>微信号：</dt>
+        <dd>18611112546</dd>
+      </template>
+      <template  [ngSwitchWhen]='2'>
+        <dt>收货人姓名：</dt>
+        <dd>张柏芝</dd>
+        <dt>收货手机号：</dt>
+        <dd>18652451265</dd>
+        <dt>收货地址：</dt>
+        <dd>广东省深圳市撒旦哥萨克的就赶快伤筋动骨卡删掉个</dd>
+        <div class="row">
+          <dt>快递公司：</dt>
+          <dd class="col-modal">
+            <input type="text" class="form-control" ngControl='express' id="">
+            <div *ngIf="!express.valid && express.touched" class="alert alert-danger" role="alert">
+              请输入快递公司
+            </div>
+          </dd>
+        </div>
+        <div class="row">
+          <dt>快递单号/订单号：</dt>
+          <dd class="col-modal">
+            <input type="text" class="form-control" ngControl='orderNum' id="">
+            <div *ngIf="!orderNum.valid && orderNum.touched" class="alert alert-danger" role="alert">
+              请输入快递单号或订单号
+            </div>
+          </dd>
+        </div>
+      </template>
+      <template [ngSwitchWhen]='3'>
+        <div class="row">
+          <dt>兑换码：</dt>
+          <dd class="col-modal">
+            <input type="text" class="form-control" ngControl='exchangeNum' id="">
+            <div *ngIf="!exchangeNum.valid && exchangeNum.touched" class="alert alert-danger" role="alert">
+              请输入兑换码
+            </div>
+          </dd>
+        </div>
+      </template>
+    </div>
+    <div class='row' *ngIf='type !== 3'>
+      <dt>状态：</dt>
+      <dd>
+        <input type="hidden" [(ngModel)]='status.id'>
+        <div class="pull-left" dropdown>
+          <button id="chat-dropdown" type="button" class="btn btn-secondary btn-sm dropdown-toggle" dropdownToggle [disabled]="disabled">
+                  {{status.text}}<span class="caret"></span>
+              </button>
+          <ul class="dropdown-menu dropdown-menu-left" role="menu" aria-labelledby="chat-dropdown">
+            <li role="menuitem">
+              <a class="dropdown-item" href='javascript:;' (click)='changeStatus(0,"兑换中")'>
+                          兑换中
+                        </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href='javascript:;' (click)='changeStatus(1,"已兑换")'>
+                          已兑换
+                        </a>
+            </li>
+          </ul>
+        </div>
+      </dd>
+    </div>
+    <dt>
+    </dt>
+    <dd>
+      <button type="submit" class="btn-modal btn btn-primary" [disabled]='!modalForm.valid || submitting'>确认生成</button>
+    </dd>
+  </dl>
+</form>

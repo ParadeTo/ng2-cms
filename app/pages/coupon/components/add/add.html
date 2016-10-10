@@ -1,0 +1,147 @@
+<page-head [breadcrumb]="['优惠券管理',title]"></page-head>
+<div class="container-fluid">
+
+	<!-- 表单 -->
+	<form class="form" role="form" [ngFormModel]='addCouponForm' (ngSubmit)='onSubmit()'>
+		<!-- 券模板编码 -->
+<!-- 		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="couponDisplayId">券模板编码：</label>
+			<div class="col-xl-3">
+				<input type="text" [disabled]='isDisabled' class="form-control" id="couponDisplayId" ngControl='couponDisplayId' [(ngModel)]='coupon.couponDisplayId'>
+				<div *ngIf="!couponDisplayId.valid && couponDisplayId.touched" class="alert alert-danger" role="alert">
+					请填写券模板编码
+				</div>
+			</div>
+		</div> -->
+
+		<!-- 券名称 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="couponName">券模板名称：</label>
+			<div class="col-xl-3">
+				<input type="text" class="form-control" id="couponName" ngControl='couponName' [(ngModel)]='coupon.couponName'>
+				<div *ngIf="couponName.hasError('required') && couponName.touched" class="alert alert-danger" role="alert">
+					请填写券模板名称
+				</div>
+				<div *ngIf="couponName.hasError('maxlength') && couponName.touched" class="alert alert-danger" role="alert">
+					不能超过10个字符
+				</div>
+			</div>
+		</div>
+
+		<!-- 券类型 -->
+		<div class="form-group row">
+			<label class='col-xl-2 form-control-label text-right' for="couponId">券模板类型：</label>
+			<div class="col-xl-3">
+				<my-drop-down-cmp [isDisabled]='isDisabled' [list]='CouponList' [selectId]='selectCouponId' (selectChange)='onCouponTypeChange($event)' #couponType='myDropDown'></my-drop-down-cmp>
+			</div>
+		</div>
+
+		<!-- 兑换方式 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="couponId">兑换方式：</label>
+			<div class="col-xl-3">
+				<my-drop-down-cmp [isDisabled]='isDisabled' [list]='ExchangeList' [selectId]='selectExchangeId' (selectChange)='onExchangeTypeChange($event)' #exchangeType='myDropDown'></my-drop-down-cmp>
+			</div>
+		</div>
+
+		<!-- 商品图片 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="couponId">商品图片：</label>
+			<div class="col-xl-3">
+				<label class="btn btn-primary" for="uploadImg">上传图片</label>
+				<input type="file" id="uploadImg" class="hidden" (change)='uploadImg($event)'>
+				<div *ngIf="imgCheckRes && imgCheckRes.type !== 'ok'" class="alert alert-danger" role="alert">
+					{{imgCheckRes.err}}
+				</div>
+
+				<input type="hidden" id='imgUrl' [(ngModel)]='coupon.imgUrl'>
+				<progress class="progress progress-success" [value]="proValue" [max]="100"></progress>
+				<img alt="" class="img-thumbnail" [src]="coupon.iconUrl">
+			</div>
+		</div>
+
+		<!-- 投资限额 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="investAmountLimit">投资限额：</label>
+			<div class="col-xl-3">
+				<input type="text" class="form-control" id="investAmountLimit" ngControl='investAmountLimit' [(ngModel)]='coupon.investAmountLimit'>
+				<div *ngIf="!investAmountLimit.valid && investAmountLimit.touched" class="alert alert-danger" role="alert">
+					请填写投资限额
+				</div>
+			</div>
+		</div>
+
+		<!-- 投资最小时间 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="investDurationLimit">投资最小时间：</label>
+			<div class="col-xl-3">
+				<input type="text" class="form-control form-control-time" id="investDurationLimit" ngControl='investDurationLimit' [(ngModel)]='coupon.investDurationLimit'> 天
+				<div *ngIf="!investDurationLimit.valid && investDurationLimit.touched" >
+					<div *ngIf="investDurationLimit.hasError('required')" class="alert alert-danger" role="alert">
+						请填写投资最小时间
+					</div>
+					<div *ngIf="!investDurationLimit.hasError('required')" class="alert alert-danger" role="alert">
+						请输入1~3位数字
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 投资类型 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="couponId">投资类型：</label>
+			<div class="col-xl-3">
+				<my-drop-down-cmp [list]='InvestList' [selectId]='selectInvestId' #investType='myDropDown'></my-drop-down-cmp>
+			</div>
+		</div>
+
+		<!-- 面值 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="par">面值：</label>
+			<div class="col-xl-3">
+				<input type="text" class="form-control" id="par" ngControl='par' [(ngModel)]='coupon.par'>
+				<div *ngIf="!par.valid && par.touched" >
+					<div *ngIf="par.hasError('required')" class="alert alert-danger" role="alert">
+						请填写面值
+					</div>
+					<div *ngIf="!par.hasError('required')" class="alert alert-danger" role="alert">
+						请输入1~4位数字
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 使用有效期 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="validDays">有效期：</label>
+			<div class="col-xl-3">
+				<input type="text" [disabled]='isDisabled' class="form-control" id="validDays" ngControl='validDays' [(ngModel)]='coupon.validDays'>
+				<div *ngIf="!validDays.valid && validDays.touched" >
+					<div *ngIf="validDays.hasError('required')" class="alert alert-danger" role="alert">
+						请填写有效期
+					</div>
+					<div *ngIf="!validDays.hasError('required')" class="alert alert-danger" role="alert">
+						请输入1~4位数字
+					</div>
+				</div>
+			</div>
+			<span class="notes">天（指领取日至多少天有效，若为0，表示长期有效）</span>
+		</div>
+
+		<!-- 备注 -->
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="useDesc">备注：</label>
+			<div class="col-xl-3">
+				<textarea class="form-control" id="useDesc" [(ngModel)]='coupon.useDesc'></textarea>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label class="col-xl-2 form-control-label text-right" for="useDesc"></label>
+			<div class="col-xl-3">
+				<button type="submit" class="btn btn-primary" [disabled]='!addCouponForm.valid || submitting  || !imgCheckRes || imgCheckRes.type != "ok"'>确认生成</button>
+			</div>
+		</div>
+	</form>
+
+	<toast-cmp #toast='toast'></toast-cmp>

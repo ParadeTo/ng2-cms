@@ -1,0 +1,55 @@
+<form [ngFormModel]='modalForm' (ngSubmit)='onSubmit()'>
+  <dl class="dl-horizontal">
+    <dt>商品名：</dt>
+    <dd>{{coupon.couponName || '-'}}</dd>
+    <dt>兑换方式：</dt>
+    <dd>{{ExchangeDict[coupon.exchangeType.toString()] || '-'}}</dd>
+    <dt>用户姓名：</dt>
+    <dd>{{coupon.memberName || '-'}}</dd>
+    <dt>手机号：</dt>
+    <dd>{{coupon.memberPhone || '-'}}</dd>
+    <dt>收货人姓名：</dt>
+    <dd>{{'-' }}</dd>
+    <dt>收货手机号：</dt>
+    <dd>-</dd>
+    <dt>收货地址：</dt>
+    <dd>-</dd>
+    <div class="row">
+      <dt>快递公司：</dt>
+      <dd class="col-modal">
+        <input type="text" class="form-control" ngControl='postCompany' [(ngModel)]='submitObj.postCompany'>
+        <div *ngIf="postCompany.hasError('required') && postCompany.touched" class="alert alert-danger" role="alert">
+          请输入快递公司
+        </div>
+        <div *ngIf="postCompany.hasError('maxlength') && postCompany.touched" class="alert alert-danger" role="alert">
+         不能超过255个字符
+       </div>
+      </dd>
+    </div>
+    <div class="row">
+      <dt>快递单号/订单号：</dt>
+      <dd class="col-modal">
+        <input type="text" class="form-control" ngControl='expressNumber' [(ngModel)]='submitObj.expressNumber'>
+        <div *ngIf="expressNumber.hasError('required') && expressNumber.touched" class="alert alert-danger" role="alert">
+          请输入快递单号或订单号
+        </div>
+        <div *ngIf="expressNumber.hasError('maxlength') && expressNumber.touched" class="alert alert-danger" role="alert">
+         不能超过64个字符
+       </div>
+     </dd>
+    </div>
+    <div class='row'>
+      <dt>状态：</dt>
+      <dd>
+        <div class="pull-left" dropdown>
+          <my-drop-down-cmp [list]='StatusList' [selectId]='coupon.status' #status='myDropDown'></my-drop-down-cmp>
+        </div>
+      </dd>
+    </div>
+    <dt>
+  </dt>
+    <dd>
+        <button type="submit" class="btn-modal btn btn-primary" [disabled]='!modalForm.valid || submitting'>确认</button>
+    </dd>
+  </dl>
+</form>

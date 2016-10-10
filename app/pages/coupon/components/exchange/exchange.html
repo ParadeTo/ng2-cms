@@ -1,0 +1,76 @@
+<page-head [breadcrumb]="['优惠券管理','券查询']"></page-head>
+<form class="form-inline" role="form"  [ngFormModel]="searchForm"  (ngSubmit)='search()'>
+	<div class="form-group" >
+		<label>状态：</label>
+      	<my-drop-down-cmp [list]='StatusList' #status='myDropDown'></my-drop-down-cmp>
+	</div>
+	<div class="form-group" [ngClass]="{'has-danger': !couponTempId.valid}">
+		<label for="couponTempId">券模板ID：</label>
+		<input type="text" class="form-control" id="couponTempId" ngControl="couponTempId" 
+				tooltip="请输入小于10位数字" 
+ 				tooltipPlacement="top"
+           tooltipTrigger="focus"
+		[(ngModel)]='searchParams.couponTemplateId'>
+	</div>
+	<div class="form-group" [ngClass]="{'has-danger': !couponId.valid}">
+		<label for="couponId">券ID：</label>
+		<input type="text" class="form-control" id="couponId" ngControl="couponId" 
+				tooltip="请输入小于10位数字" 
+ 				tooltipPlacement="top"
+           tooltipTrigger="focus"
+		[(ngModel)]='searchParams.couponItemId'>
+	</div>
+	<div class="form-group" [ngClass]="{'has-danger': !userId.valid}">
+		<label for="userId">用户ID：</label>
+		<input type="text" class="form-control" id="userId" ngControl="userId" 
+				tooltip="请输入小于10位数字" 
+ 				tooltipPlacement="top"
+           tooltipTrigger="focus"
+		[(ngModel)]='searchParams.userId'>
+	</div>
+	<div class="form-group" [ngClass]="{'has-danger': !userTel.valid}">
+		<label for="tel">用户手机号：</label>
+		<input type="text" class="form-control" id="tel" ngControl="userTel" [(ngModel)]='searchParams.phonenum'>
+	</div>
+	<button type="submit" class="btn btn-primary" [disabled]='!searchForm.valid || submitting'>搜索</button>
+</form>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>券模板ID</th>
+			<th>券ID</th>
+			<th>商品名称</th>
+			<th>兑换方式</th>
+			<th>用户ID</th>
+			<th>用户姓名</th>
+			<th>用户手机号</th>
+			<th>兑换时间</th>
+			<th>状态</th>
+			<th>兑换</th>
+		</tr>
+	</thead>
+	<tbody *ngIf='coupons.length > 0'>
+		<tr *ngFor='let c of coupons'>
+			<td scope="row">{{c.couponTemplateId}}</td>
+			<td>{{c.couponItemId}}</td>
+			<td>{{c.couponName}}</td>
+			<td>{{ExchangeDict[c.exchangeType]}}</td>
+			<td>{{c.memberId}}</td>
+			<td>{{c.memberName}}</td>
+			<td>{{c.memberPhone}}</td>
+			<td>{{c.gmtCreate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+			<td class={{c.statusClassName}}>{{StatusDict[c.status]}}</td>
+			<!-- <td><a *ngIf='c.status===0' href='javascript:;' (click)='modal.show(1,c)'>操作</a></td> -->
+			<td><a href='javascript:;' (click)='modal.show(c.exchangeType,c)'>操作</a></td>
+		</tr>
+	</tbody>
+</table>
+<p class="no-data-note" *ngIf='coupons.length == 0'>
+	没有数据
+</p>
+<div class="pagination">
+	<pagination [firstText]="'首页'" [lastText]="'末页'" [previousText]="'上一页'" [nextText]="'下一页'"  [totalItems]="totalItems" [itemsPerPage]='itemsPerPage' [(ngModel)]="currentPage" [maxSize]="maxSize" class="pagination-sm" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)"></pagination>
+</div>
+
+<!-- 对话框 -->
+<modal-cmp #modal='modal'></modal-cmp>

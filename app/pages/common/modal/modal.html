@@ -1,0 +1,30 @@
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">商品兑换-{{typeText}}</h4>
+      </div>
+      <div class="modal-body">
+        <div [ngSwitch]='type'>
+          <template  [ngSwitchWhen]='1'>
+            <weixin-cmp [StatusList]='statusList' [ExchangeDict]='ExchangeDict' [toast]='toast' [coupon]='coupon' (success)='onSuccess()'></weixin-cmp>
+          </template>
+          <template  [ngSwitchWhen]='3'>
+            <logistics-cmp [ExchangeDict]='ExchangeDict' [StatusList]='statusList' [toast]='toast' [coupon]='coupon' (success)='onSuccess()'></logistics-cmp>
+          </template>
+          <template  [ngSwitchWhen]='2'>
+            <msg-cmp [ExchangeDict]='ExchangeDict' [StatusList]='statusList' [toast]='toast' [coupon]='coupon' (success)='onSuccess()'></msg-cmp>
+          </template>
+          <template  [ngSwitchWhen]='4'>
+            <manual-cmp [StatusList]='statusList' [ExchangeDict]='ExchangeDict' [toast]='toast' [coupon]='coupon' (success)='onSuccess()'></manual-cmp>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<toast-cmp #toast='toast'></toast-cmp>
