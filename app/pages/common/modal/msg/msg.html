@@ -11,7 +11,7 @@
     <div class="row">
       <dt>兑换码：</dt>
       <dd class="col-modal">
-        <input type="text" class="form-control" ngControl='giftContent' id="" [(ngModel)]='exchangeNum'>
+        <input type="text" class="form-control" ngControl='giftContent' id="" [(ngModel)]='submitObj.giftContent'>
         <div *ngIf="!giftContent.valid && giftContent.touched" class="alert alert-danger" role="alert">
           请输入兑换码
         </div>

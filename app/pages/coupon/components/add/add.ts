@@ -96,7 +96,7 @@ export class AddComponent {
     // 表单
     this.addCouponForm = this.formBuilder.group({
       // couponDisplayId:['', Validators.required],
-      couponName:['',Validators.compose([Validators.required,Validators.maxLength(10)])],
+      couponName:['',Validators.compose([Validators.required,Validators.maxLength(20)])],
       investAmountLimit:['',Validators.required],
       investDurationLimit:['',Validators.compose([Validators.required,Validators.pattern('[0-9]{1,3}')])],
       par:['',Validators.compose([Validators.required,Validators.pattern('[0-9]{1,4}')])],

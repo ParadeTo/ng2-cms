@@ -6,48 +6,33 @@ import { RequestService } from '../../../../service/request';
 
 @Component({
   moduleId: module.id,
-  selector: 'msg-cmp',
-  templateUrl: 'msg.html',
+  selector: 'scene-cmp',
+  templateUrl: 'scene.html',
   providers: [RequestService],
-	directives: [MyDropDownComponent],
+  directives: [MyDropDownComponent],
   styleUrls: ['../modal.css']
 })
 
 
-export class MsgComponent {
+export class SceneComponent {
   @ViewChild('status') private status:any;
   @Input('coupon') private coupon:any;
   @Input('toast') private toast:any;
   @Input('StatusList') private StatusList:any;
   @Input('ExchangeDict') private ExchangeDict:any;
   @Output('success') success = new EventEmitter();
-  
-  // 表单及控件
-  private modalForm: any;
-  private giftContent: any;
-
-  // 表单提交对象
-  private submitObj:any = {
-    rewardUseId:null,
-    giftContent:null,
-    status:null
-  };
 
   constructor (
-    public formBuilder: FormBuilder,
     public requestService: RequestService
   ) {
-    this.modalForm = this.formBuilder.group({
-      giftContent:['',Validators.required],
-    });
-    this.giftContent = this.modalForm.controls['giftContent'];
+
   }
 
   onSubmit () {
-    this.submitObj.rewardUseId = this.coupon.rewardUseId
-    this.submitObj.status = parseInt(this.status.getId())
-
-    this.requestService.modifyCoupon(this.submitObj)
+    this.requestService.modifyCoupon({
+      rewardUseId:this.coupon.rewardUseId,
+      status:parseInt(this.status.getId())
+    })
       .subscribe(
             (data: any) => {
               if (data.code === 0) {

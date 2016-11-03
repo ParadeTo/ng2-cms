@@ -21,6 +21,9 @@
           <template  [ngSwitchWhen]='4'>
             <manual-cmp [StatusList]='statusList' [ExchangeDict]='ExchangeDict' [toast]='toast' [coupon]='coupon' (success)='onSuccess()'></manual-cmp>
           </template>
+          <template  [ngSwitchWhen]='5'>
+            <scene-cmp [StatusList]='statusList' [ExchangeDict]='ExchangeDict' [toast]='toast' [coupon]='coupon' (success)='onSuccess()'></scene-cmp>
+          </template>
         </div>
       </div>
     </div>

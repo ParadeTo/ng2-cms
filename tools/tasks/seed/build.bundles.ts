@@ -26,6 +26,7 @@ function getShims() {
 
 /**
  * Bundles the shim files.
+ * ayou 2016.10.14 打包shims
  */
 function bundleShims() {
   return gulp.src(getShims())

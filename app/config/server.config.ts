@@ -7,13 +7,20 @@
 // export const baseUrl = '/reward';
  
 // 测试
+// const server = {
+//   host: 'http://192.168.10.33:8611/',
+//   apiBaseUrl: 'rest/'
+// };
+// export const TemplateUrl = server.host + 'users.xls';
+// export const baseUrl = '';
+
+// 生产
 const server = {
-  host: 'http://192.168.10.33:8611/',
+  host: 'http://203.195.173.251:8611/',
   apiBaseUrl: 'rest/'
 };
 export const TemplateUrl = server.host + 'users.xls';
-export const baseUrl = '';
-
+export const baseUrl = '/reward-console';
 
 export const Account = {
   username: 'super',
@@ -125,7 +132,7 @@ export const StatusList = [
   {id:'0' ,text: '未兑换'},
   {id:'1' ,text: '兑换中'},
   {id:'2' ,text: '已兑换'},
-  {id:'3' ,text: '已过期'},
+  // {id:'3' ,text: '已过期'},
 ];
 
 export const StatusDict = {

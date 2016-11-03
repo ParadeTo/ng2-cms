@@ -220,6 +220,7 @@ export class SeedConfig {
 
   /**
    * The name of the bundle file to include all JavaScript shims.
+   * ayou 2016.10.14 依赖包打包后的名字
    * @type {string}
    */
   JS_PROD_SHIMS_BUNDLE = 'shims.js';
